@@ -56,6 +56,7 @@
     </properties>
 
     <!-- 依赖管理标签  必须加 -->
+    <!-- 此标签内的依赖并没有被加载，只是约束了版本 -->
     <dependencyManagement>
         <dependencies>
             <!-- Spring -->
@@ -275,6 +276,8 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    
+    <!-- 此处被加载 -->
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -283,6 +286,7 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    
     <build>
         <plugins>
             <plugin>
@@ -303,18 +307,148 @@
 
 ##### 4.3.1.2 公共模块 qingcheng_common 
 
-创建公共模块 qingcheng_common，pom.xml 配置如下： 
+创建公共模块 `qingcheng_common` 
 
- 
-  
-   
-resources 下创建 applicationContext-common.xml  
+###### pom.xml 配置
 
+ ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>qingcheng_parent</artifactId>
+        <groupId>com.qingcheng</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>qingcheng_common</artifactId>
 
+    <!--公共模块-->
+    <dependencies>
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <!-- dubbo相关 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+    </dependencies>
+</project>
+ ```
 
+###### applicationContext-common.xml 配置
+
+在 resources 下创建 `applicationContext-common.xml`  
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 作用：加载所有扩展名为 properties 的配置文件 -->
+	<context:property-placeholder location="classpath*:*.properties" />
+</beans>
+```
+
+###### log4j.properties 配置日志
+
+在 resources 下创建 `log4j.properties` 文件
+
+```properties
+### direct log messages to stdout ###
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.err
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+
+### direct messages to file mylog.log ###
+log4j.appender.file=org.apache.log4j.FileAppender
+log4j.appender.file.File=c:\\mylog.log
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+
+### set log levels - for more verbose logging change 'info' to 'debug' ###
+log4j.rootLogger=debug, stdout
+```
+
+###### zk.properties 配置 zk 链接地址
+
+在 resources 下创建 `zk.properties` 文件
+
+```properties
+zk.address=127.0.0.1:2181
+```
 
 ##### 4.3.1.3 服务公共模块 qingcheng_common_service 
+
+
+
+
+
+
 
 
 ##### 4.3.1.4 web 公共模块 qingcheng_common_web
@@ -325,7 +459,7 @@ resources 下创建 applicationContext-common.xml
 
 ##### 4.3.1.6 服务接口层模块 qingcheng_interface
 
-      
+​      
 
 #### 4.3.2 服务层模块（商品）
 
