@@ -164,17 +164,17 @@ public class BrandController {
 
 ##### 5.3.1.6 测试
 
-1 运行 zookeeper，双击 zkServer.cmd
+1. 运行 zookeeper，双击 zkServer.cmd
 
-2 安装两个工程 `qingcheng_pojo` 与 `qingcheng_interface`。安装 qingcheng_interface 可能报错，解决 `mvn -U clean install`。（其他工程应该是之前安装过，没安装，则安装所有工程）
+2. 安装两个工程 `qingcheng_pojo` 与 `qingcheng_interface`。安装 qingcheng_interface 可能报错，解决 `mvn -U clean install`。（其他工程应该是之前安装过，没安装，则安装所有工程）
 
-3 运行服务层程序，展开 `qingcheng_service_goods` 下的 `Plugins`，展开其下的 `tomcat7`，点击 `tomcat7:run` 运行。
+3. 运行服务层程序，展开 `qingcheng_service_goods` 下的 `Plugins`，展开其下的 `tomcat7`，点击 `tomcat7:run` 运行。
 
-4 运行 `qingcheng_web_manager` 工程，双击 `tomcat7:run` 运行。
+4. 运行 `qingcheng_web_manager` 工程，双击 `tomcat7:run` 运行。
 
-5 启动工程，浏览器测试：http://localhost:9101/brand/findAll.do
+5. 启动工程，浏览器测试：http://localhost:9101/brand/findAll.do
 
-浏览器页面输出 json 格式字符串，则测试成功！ 
+6. 浏览器页面输出 json 格式字符串，则测试成功！ 
 
 
 #### 5.3.2 品牌分页列表
