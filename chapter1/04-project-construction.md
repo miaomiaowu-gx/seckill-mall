@@ -773,15 +773,68 @@ redis.maxWait=3000
 
 ##### 4.3.1.5 实体层模块 qingcheng_pojo
 
+创建实体类模块 qingcheng_pojo，pom.xml 配置如下：
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>qingcheng_parent</artifactId>
+        <groupId>com.qingcheng</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>qingcheng_pojo</artifactId>
 
+    <dependencies>
+        <!-- 引入 JPA -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>
+```
 
 ##### 4.3.1.6 服务接口层模块 qingcheng_interface
 
-​      
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>qingcheng_parent</artifactId>
+        <groupId>com.qingcheng</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>qingcheng_interface</artifactId>
+
+    <dependencies>
+        <!-- 依赖实体类模块，接口必然会用到实体类 -->
+        <dependency>
+            <groupId>com.qingcheng</groupId>
+            <artifactId>qingcheng_pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>
+```
 
 #### 4.3.2 服务层模块（商品）
+
+
+
+
+
+
 
 
 
