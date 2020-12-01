@@ -27,7 +27,7 @@
 
 官方的文档中介绍了通用 mapper 的三种使用方式 ，纯 java 使用方式、与 Spring 集成方式、与 SpringBoot 集成方式。这里介绍与 Spring 集成方式。
 
-（1）引入依赖
+##### 3.2.1.1 引入依赖
 
 正常情况下，Spring 和 MyBatis 的集成环境中，应该已经存在下面的依赖：
 
@@ -69,9 +69,18 @@
 </dependency>
 ```
 
+##### 3.2.1.2 与 spring 集成
 
+直接使用 tk.mybatis 提供的 `tk.mybatis.spring.mapper.MapperScannerConfigurer` 进行配置，这个配置和 MyBatis 官方提供的 `org.mybatis.spring.mapper.MapperScannerConfigurer` 区别只是第一层的包名，tk 和 org。所以使用这种方式时，如果你项目已经使用 `org.` 进行了配置，只需要改成 `tk.` 即可。
 
+```xml
+<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="扫描包名"/>
+</bean>
+```
 
+项目中采用的是这种 xml 的配置方式，通用 mapper 还提供了注解方式的配置，详见
+文档。
 
 
 #### 3.2.2 实体类映射
