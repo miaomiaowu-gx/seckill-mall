@@ -85,6 +85,31 @@
 
 #### 3.2.2 实体类映射
 
+实体类映射类似下列形式:
+
+```java
+@Table(name="tb_brand")
+public class Brand implements Serializable{
+    @Id 
+    private Integer id;
+    private String name;
+    //getter and setter ....
+}
+```
+
+`@Table` 是指定**实体类对应的数据库表**，`@Id` 指的是**主键映射**。经过上面简单的配置后，相
+当于有了 MyBatis 中的关系映射。
 
 
 #### 3.2.3 创建 Mapper 接口
+
+```java
+public interface BrandMapper extends Mapper<Brand> {
+}
+```
+
+这里继承了 `tk.mybatis.mapper.common.Mapper` 接口，**在接口上指定泛型类型** Brand。**当继承了 Mapper 接口后，此时就已经有了针对 Brand 的大量方法**(无需自己再编写方法)，方法如下：
+
+
+
+
