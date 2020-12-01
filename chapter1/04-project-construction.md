@@ -303,9 +303,12 @@
 
 ##### 4.3.1.2 公共模块 qingcheng_common 
 
-
-（2）创建公共模块 qingcheng_common，pom.xml内容参见资源/配置文件/主架构/公
+创建公共模块 qingcheng_common，pom.xml 内容参见资源/配置文件/主架构/公
 共模块/父公共模块/pom.xml resources下创建applicationContext-common.xml  
+
+
+
+
 
 ##### 4.3.1.3 服务公共模块 qingcheng_common_service 
 
