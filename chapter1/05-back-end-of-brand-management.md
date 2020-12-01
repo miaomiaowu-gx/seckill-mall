@@ -25,7 +25,11 @@
 
 ##### 5.3.1.1 创建品牌表(tb_brand)的实体类 
 
-品牌表 (tb_brand) 在商品数据库 (goods)，在 `qingcheng_pojo` 模块的 java 目录下创建 `com.qingcheng.pojo.goods` 多级包。其下创建实体类 `Brand.java`，并实现可序列化接口 `Serializable`。
+品牌表 (tb_brand) 在商品数据库 (goods)，创建实体类步骤如下：
+
+1. 在 `qingcheng_pojo` 模块的 java 目录下创建 `com.qingcheng.pojo.goods` 多级包。
+2. 其下创建实体类 `Brand.java`，并实现可序列化接口 `Serializable`。
+3. 添加 `@Table` 与 `@Id` 注解。
 
 ```java
 package com.qingcheng.pojo.goods;
@@ -40,17 +44,15 @@ public class Brand implements Serializable{
 
     //该注解用于标注主键
     @Id
-    private Integer id;
-    private String name;
-    private String image;
-    private String letter;
-    private Integer seq;
+    private Integer id;    //品牌id
+    private String name;   //品牌名称
+    private String image;  //品牌图片地址
+    private String letter; //品牌的首字母
+    private Integer seq;   //排序
     
     // 省略对应的 getter & setter 方法...
 }
 ```
-
-
 
 注：
 
@@ -58,9 +60,84 @@ public class Brand implements Serializable{
 * **实体类命名**：一般来说，实体类的类名与表名是相同的。但是，如果表明带前缀，前缀可以省略，并且首字母大写。 **tb_brand 表 --> Brand 实体类**。
 * **为什么要实现可序列化接口 Serializable**：实体类本身需要在网络上传输（dubbo 分布式框架）。
 
-##### 5.3.1.2
+##### 5.3.1.2 品牌数据访问层 dao
 
-数据访问层，要放到 qingcheng_service_goods 模块
+数据访问层，要放到 qingcheng_service_goods 模块。
+
+1. 在该模块的 java 文件夹下，创建 `com.qingcheng.dao` 多级包。
+2. 其下，创建接口 `BrandMapper.java` ，并继承 tk 包的 `Mapper`，范型为对应的实体类。
+
+```java
+package com.qingcheng.dao;
+
+import com.qingcheng.pojo.goods.Brand;
+import tk.mybatis.mapper.common.Mapper;
+
+public interface BrandMapper extends Mapper<Brand>{
+    //建立该接口，并继承自 tk 包下的 Mapper，则具有增删改查的整套方法。
+    //如果向实现一些特殊的方法，在此处添加方法即可。
+}
+```
+
+##### 5.3.1.3 业务 (service) 接口
+
+1. 在 `qingcheng_interface` 工程创建 `com.qingcheng.service.goods` 包。
+2. 其下，创建 `BrandService` 接口 
+
+```java
+package com.qingcheng.service.goods;
+
+import com.qingcheng.pojo.goods.Brand;
+
+import java.util.List;
+
+//品牌业务逻辑层
+public interface BrandService {
+    public List<Brand> findAll();
+}
+```
+
+##### 5.3.1.4 业务层实现类 
+
+* 在 `qingcheng_service_goods` 工程创建 `com.qingcheng.service.impl`包。
+
+* 包下创建类 `BrandServiceImpl`
+
+```java
+package com.qingcheng.service.impl;
+
+import com.alibaba.dubbo.config.annotation.Service;
+import com.qingcheng.dao.BrandMapper;
+import com.qingcheng.pojo.goods.Brand;
+import com.qingcheng.service.goods.BrandService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+// 选择 com.alibaba.dubbo.config.annotation.Service 下的 Service 注解
+@Service
+public class BrandServiceImpl implements BrandService {
+
+    // 在服务层调用数据访问层
+    @Autowired
+    private BrandMapper brandMapper;
+
+    @Override
+    public List<Brand> findAll() {
+        return brandMapper.selectAll();
+    }
+}
+```
+
+##### 5.3.1.5 
+
+
+
+
+
+
+
+
 
 
 #### 5.3.2 品牌分页列表
