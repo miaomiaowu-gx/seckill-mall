@@ -12,3 +12,6 @@
 
 公共模块主要由**公共配置和公共类**构成。模块依赖关系入下图：
 
+<img src="./img1/03-system-architecture.png" width=600>
+
+
