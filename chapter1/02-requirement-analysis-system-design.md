@@ -37,5 +37,5 @@
 
 #### 2.2.3 系统架构图
 
-<img src="./img1/01-system-architecture.png" width=500>
+<img src="./img1/01-system-architecture.png" width=900>
 
