@@ -112,7 +112,68 @@ public interface BrandMapper extends Mapper<Brand> {
 
 <img src="./img1/02-common-mapper.png" width=400>
 
+这些方法和 MBG 生成的大部分方法都一致，还有一部分 MBG 之外的常用方法。
+
+##### 3.2.3.1 基础接口 select 
+
+```java
+List<T> select(T record)
+//根据T对象中的属性名称查询，类似于select * from table where t.name=#{name} and
+t.password = #{password}
+```
+
+```java
+T selectOne(T record)
+//根据实体中的属性进行查询，只能有一个返回值，有多个结果是抛出异常，查询条件使用等号
+```
+
+```java
+T selectByPrimaryKey(Object key)
+//根据主键查询 
+//说明：根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
+```
+
+```java
+int selectCount(T record);
+//说明：根据实体中的属性查询总数，查询条件使用等号
+```
 
 
 
+##### 3.2.3.2 基础接口 insert
 
+```java
+int insert(T record);
+//说明：保存一个实体，【null 的属性也会保存，不会使用数据库默认值】
+```
+
+```java
+int insertSelective(T record);
+//说明：保存一个实体，【null 的属性不会保存，会使用数据库默认值】
+```
+
+
+##### 3.2.3.3 基础接口 Update
+
+```java
+int updateByPrimaryKey(T record);
+//说明：根据【主键】更新实体全部字段，【null值会被更新】
+```
+
+```java
+int updateByPrimaryKeySelective(T record);
+//说明：根据【主键】更新属性【不为null】的值
+```
+
+
+##### 3.2.3.4 基础接口 delete
+
+```java
+int delete(T record);
+//说明：根据【实体属性】作为条件进行删除，查询条件使用等号
+```
+
+```java
+int deleteByPrimaryKey(Object key);
+//说明：根据【主键字段】进行删除，方法参数【必须包含完整的主键属性】
+```
