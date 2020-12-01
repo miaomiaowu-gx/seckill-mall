@@ -830,13 +830,103 @@ redis.maxWait=3000
 
 #### 4.3.2 服务层模块（商品）
 
+创建 qingcheng_service_goods 模块 
 
+##### 1] pom.xml
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>qingcheng_parent</artifactId>
+        <groupId>com.qingcheng</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>qingcheng_service_goods</artifactId>
+	
+    <!-- 打包为 war 工程 -->
+    <packaging>war</packaging>
+    
+    <dependencies>
+        <!-- 所有服务模块都应该引入 qingcheng_interface 接口模块-->
+        <dependency>
+            <groupId>com.qingcheng</groupId>
+            <artifactId>qingcheng_interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qingcheng</groupId>
+            <artifactId>qingcheng_common_service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 指定端口 -->
+                    <port>9001</port>
+                    <!-- 请求路径 -->
+                    <path>/</path>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
 
+##### 2] db.properties
 
+在 resources 文件夹下创建 db.properties (数据库连接信息)
 
+```properties
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://127.0.0.1:3306/qingcheng_goods?characterEncoding=UTF8
+jdbc.username=root
+jdbc.password=mysql
+```
+
+##### 3] dubbo.properties
+
+在 resources 文件夹下创建 dubbo.properties
+
+```properties
+# 定义端口，每一个服务的端口应该是不一样的
+dubbo.port=20881
+# 定义服务的名称
+dubbo.application=goods
+```
+
+##### 4] web.xml
+
+在 src->main 文件夹下，创建 webapp/WEB-INF/web.xml。webapp 文件夹上有一个小蓝点。 
+
+```xml
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>Archetype Created Web Application</display-name>
+    <!-- 加载spring容器 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <!-- [classpath:] 没有 *，只能找当前工程（即模块）目录 resources 下的配置文件-->
+        <!-- [classpath*:] 除了查找本项目（即模块），也会查找依赖的工程项目（即模块）-->
+        <param-value>classpath*:applicationContext*.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+</web-app>
+```
 
 #### 4.3.3 web层（管理后台
 
