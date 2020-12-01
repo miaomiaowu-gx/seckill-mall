@@ -110,7 +110,7 @@ public interface BrandMapper extends Mapper<Brand> {
 
 这里继承了 `tk.mybatis.mapper.common.Mapper` 接口，**在接口上指定泛型类型** Brand。**当继承了 Mapper 接口后，此时就已经有了针对 Brand 的大量方法**(无需自己再编写方法)，方法如下：
 
-<img src="./img1/02-common-mapper.png" width=400>
+<img src="./img1/02-common-mapper.png" width=600>
 
 这些方法和 MBG 生成的大部分方法都一致，还有一部分 MBG 之外的常用方法。
 
@@ -137,8 +137,6 @@ T selectByPrimaryKey(Object key)
 int selectCount(T record);
 //说明：根据实体中的属性查询总数，查询条件使用等号
 ```
-
-
 
 ##### 3.2.3.2 基础接口 insert
 
