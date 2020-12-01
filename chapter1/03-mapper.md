@@ -110,6 +110,9 @@ public interface BrandMapper extends Mapper<Brand> {
 
 这里继承了 `tk.mybatis.mapper.common.Mapper` 接口，**在接口上指定泛型类型** Brand。**当继承了 Mapper 接口后，此时就已经有了针对 Brand 的大量方法**(无需自己再编写方法)，方法如下：
 
+<img src="./img1/02-common-mapper.png" width=400>
+
+
 
 
 
