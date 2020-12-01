@@ -27,6 +27,50 @@
 
 官方的文档中介绍了通用 mapper 的三种使用方式 ，纯 java 使用方式、与 Spring 集成方式、与 SpringBoot 集成方式。这里介绍与 Spring 集成方式。
 
+（1）引入依赖
+
+正常情况下，Spring 和 MyBatis 的集成环境中，应该已经存在下面的依赖：
+
+```xml
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>版本号</version>
+</dependency>
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis‐spring</artifactId>
+    <version>版本号</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring‐context</artifactId>
+    <version>版本号</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring‐tx</artifactId>
+    <version>版本号</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring‐jdbc</artifactId>
+    <version>版本号</version>
+</dependency>
+```
+
+集成通用 Mapper 在上面的基础上添加下面的依赖：
+
+```xml
+<dependency>
+    <groupId>tk.mybatis</groupId>
+    <artifactId>mapper</artifactId>
+    <version>最新版本</version>
+</dependency>
+```
+
+
+
 
 
 
