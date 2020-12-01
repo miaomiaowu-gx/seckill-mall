@@ -1,6 +1,6 @@
 # Table of content
 
-* [第1章 青橙电商系统搭建](chapter1.md)
+* [第1章 电商系统搭建](chapter1.md)
 * [第2章 品牌管理前端与图片上传](chapter2.md)
 * [第3章 模板与分类管理](chapter3.md)
 * [第4章 商品管理后端逻辑](chapter4.md)
@@ -18,3 +18,5 @@
 * [第16章 购物车解决方案](chapter16.md)
 * [第17章 分布式事务解决方案](chapter17.md)
 * [第18章 微信扫码支付解决方案](chapter18.md)
+* [第19章 秒杀](chapter19.md)
+
