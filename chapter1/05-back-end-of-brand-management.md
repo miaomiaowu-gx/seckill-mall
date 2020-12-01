@@ -129,9 +129,40 @@ public class BrandServiceImpl implements BrandService {
 }
 ```
 
-##### 5.3.1.5 
+##### 5.3.1.5 Controller 
 
+1. 在 `qingcheng_web_manager` 工程创建 `com.qingcheng.controller.goods` 包。
 
+2. 包下创建类 `BrandController` 。
+
+```java
+package com.qingcheng.controller.goods;
+
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.qingcheng.pojo.goods.Brand;
+import com.qingcheng.service.goods.BrandService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/brand")
+public class BrandController {
+
+    // 调用服务，@Reference 注入远程的业务接口
+    // 本地注入用 @AutoWired
+    @Reference
+    private BrandService brandService;
+
+    @RequestMapping("/findAll")
+    public List<Brand> findAll(){
+        return brandService.findAll();
+    }
+}
+```
+
+##### 5.3.1.6 测试
 
 
 
