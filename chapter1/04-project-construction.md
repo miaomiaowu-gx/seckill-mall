@@ -309,7 +309,7 @@
 
 创建公共模块 `qingcheng_common` 
 
-###### pom.xml 配置
+###### 1] pom.xml 配置
 
  ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -397,7 +397,7 @@
 </project>
  ```
 
-###### applicationContext-common.xml 配置
+###### 2] applicationContext-common.xml 配置
 
 在 resources 下创建 `applicationContext-common.xml`  
 
@@ -413,7 +413,7 @@
 </beans>
 ```
 
-###### log4j.properties 配置日志
+###### 3] log4j.properties 配置日志
 
 在 resources 下创建 `log4j.properties` 文件
 
@@ -434,7 +434,7 @@ log4j.appender.file.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
 log4j.rootLogger=debug, stdout
 ```
 
-###### zk.properties 配置 zk 链接地址
+###### 4] zk.properties 配置 zk 链接地址 
 
 在 resources 下创建 `zk.properties` 文件
 
@@ -444,11 +444,204 @@ zk.address=127.0.0.1:2181
 
 ##### 4.3.1.3 服务公共模块 qingcheng_common_service 
 
+创建 `qingcheng_common_service`  模块
 
+###### 1] pom.xml  配置
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>qingcheng_parent</artifactId>
+        <groupId>com.qingcheng</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>qingcheng_common_service</artifactId>
 
+    <dependencies>
+        <!-- 添加对 common 的依赖 -->
+        <dependency>
+            <groupId>com.qingcheng</groupId>
+            <artifactId>qingcheng_common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- Mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.miemiedev</groupId>
+            <artifactId>mybatis-paginator</artifactId>
+        </dependency>
+        <!-- MySql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- 连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <!--通用Mapper-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+        </dependency>
+        <!-- 缓存 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+    </dependencies>
+    
+</project>
+```
 
+###### 2] 数据库相关配置 applicationContext-dao.xml
+
+resources 下创建 applicationContext-dao.xml 
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 数据库连接相关信息-->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="5" />
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- Mybatis 分页插件 -->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+
+	<!-- 包扫描 -->
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.qingcheng.dao" />
+	</bean>
+
+	<!-- 事务管理器  -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+    
+	<!--
+        开启事务控制的注解支持
+        注意：此处必须加入proxy-target-class="true"，
+              需要进行事务控制，会由Spring框架产生代理对象，Dubbo需要将Service发布为服务，要求必须使用cglib创建代理对象。
+    -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+</beans>
+```
+
+ ###### 3] dubbo 配置 applicationContext-dubbo.xml
+
+resources 下创建 applicationContext-dubbo.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<!--指定暴露服务的端口，如果不指定默认为20880-->
+	<!-- ${zk.address} 在 qingcheng_common中有配置-->
+	<!-- ${dubbo.port} 等 dubbo相关信息，此处没有值配置。
+		之后在各个服务模块中设置，因为每一个服务模块其配置都不相同-->
+	<dubbo:protocol name="dubbo" port="${dubbo.port}"/>
+	<dubbo:application name="${dubbo.application}" />
+	<dubbo:registry protocol="zookeeper" address="${zk.address}" />
+	<dubbo:annotation package="com.qingcheng.service" />
+	<!--<context:annotation-config/>-->
+
+	<dubbo:provider timeout="10000" threadpool="fixed" threads="100" accepts="1000"/>
+</beans>
+```
+
+###### applicationContext-redis.xml
+
+resources 下创建 applicationContext-redis.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/beans/spring-cache.xsd">
+
+   <!-- redis 相关配置 --> 
+   <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+     <property name="maxIdle" value="${redis.maxIdle}" />   
+     <property name="maxWaitMillis" value="${redis.maxWait}" />  
+   </bean>  
+  
+   <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+       p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}" p:pool-config-ref="poolConfig"/>  
+   
+   <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">  
+    	<property name="connectionFactory" ref="jedisConnectionFactory" />
+   </bean>
+</beans>  
+```
+
+###### redis-config.properties
+
+```properties
+redis.host=127.0.0.1
+redis.port=6379
+redis.pass=
+redis.database=0
+redis.maxIdle=300
+redis.maxWait=3000
+```
 
 
 ##### 4.3.1.4 web 公共模块 qingcheng_common_web
