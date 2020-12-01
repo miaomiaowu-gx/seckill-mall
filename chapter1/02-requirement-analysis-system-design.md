@@ -26,7 +26,7 @@
 #### 2.2.2 技术选型
 
 * 主框架技术：SSM（通用 mapper）+ Dubbo
-* 前端技术：网站后台 Vue.js+ElementUI 网站前台采用 Vue.js 和模板技术 thymeleaf
+* 前端技术：网站后台 Vue.js+ElementUI、网站前台采用 Vue.js 和模板技术 thymeleaf
 * 消息中间件技术：RabbitMQ
 * 搜索中间件技术：elasticsearch
 * 缓存中间件技术：redis
@@ -36,3 +36,6 @@
 
 
 #### 2.2.3 系统架构图
+
+
+
