@@ -605,7 +605,7 @@ resources 下创建 applicationContext-dubbo.xml
 </beans>
 ```
 
-###### applicationContext-redis.xml
+###### 4] applicationContext-redis.xml
 
 resources 下创建 applicationContext-redis.xml
 
@@ -632,7 +632,7 @@ resources 下创建 applicationContext-redis.xml
 </beans>  
 ```
 
-###### redis-config.properties
+###### 5] redis-config.properties
 
 ```properties
 redis.host=127.0.0.1
@@ -645,6 +645,56 @@ redis.maxWait=3000
 
 
 ##### 4.3.1.4 web 公共模块 qingcheng_common_web
+
+创建 qingcheng_common_web 模块
+
+###### 1] pom.xml 
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>qingcheng_parent</artifactId>
+        <groupId>com.qingcheng</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>qingcheng_common_web</artifactId>
+
+    <dependencies>
+        <!-- 对本项目 common 模块的依赖-->
+        <dependency>
+            <groupId>com.qingcheng</groupId>
+            <artifactId>qingcheng_common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- 文件上传 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <!-- 安全框架 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <!-- 阿里提供的对象存储oss-->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+
 
 
 
