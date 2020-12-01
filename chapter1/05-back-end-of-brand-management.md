@@ -164,9 +164,9 @@ public class BrandController {
 
 ##### 5.3.1.6 测试
 
+1 运行 zookeeper，双击 zkServer.cmd
 
-
-
+2 安装两个工程 qingcheng_pojo 与 qingcheng_interface
 
 
 
