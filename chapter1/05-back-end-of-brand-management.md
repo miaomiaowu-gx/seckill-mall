@@ -4,7 +4,7 @@
 
 &emsp;&emsp;实现对品牌的基本操作（增删改查），只完成后端代码部分，并通过浏览器等工具完成测试。
 
-
+<img src="./img1/04-background-home-page.png" width=500>
 
 ### 5.2 表结构分析
 
