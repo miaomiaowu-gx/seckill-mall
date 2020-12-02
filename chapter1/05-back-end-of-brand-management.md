@@ -62,7 +62,7 @@ public class Brand implements Serializable{
 
 ##### 5.3.1.2 品牌数据访问层 dao
 
-数据访问层，要放到 qingcheng_service_goods 模块。
+数据访问层，要放到 `qingcheng_service_goods` 模块。
 
 1. 在该模块的 java 文件夹下，创建 `com.qingcheng.dao` 多级包。
 2. 其下，创建接口 `BrandMapper.java` ，并继承 tk 包的 `Mapper`，范型为对应的实体类。
