@@ -7,7 +7,6 @@
   * [第四节 青橙-工程搭建](chapter1/04-project-construction.md)
   * [第五节 青橙管理后台-品牌管理后端](chapter1/05-back-end-of-brand-management.md)
   * [第六节 公共异常处理](chapter1/06-public-exception-handling.md)
-  * [附录 1 创建数据库与数据表](chapter1/07-database-table.md)
 * [第2章 品牌管理前端与图片上传](chapter2.md)
   * [第一节 ElementUI 介绍](chapter2/01-ElementUI.md)
   * [第二节 ES6](chapter2/02-ES6.md)
