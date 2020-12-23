@@ -293,6 +293,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <!-- IDEA 中使用的 JDK 版本要与此处设置一直，使用 jdk 1.8 -->
                     <source>8</source>
                     <target>8</target>
                 </configuration>
