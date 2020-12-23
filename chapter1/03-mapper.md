@@ -96,8 +96,7 @@ public class Brand implements Serializable{
 }
 ```
 
-`@Table` 是指定**实体类对应的数据库表**，`@Id` 指的是**主键映射**。经过上面简单的配置后，相
-当于有了 MyBatis 中的关系映射。
+`@Table` 是指定**实体类对应的数据库表**，`@Id` 指的是**主键映射**。经过上面简单的配置后，相当于有了 MyBatis 中的关系映射。
 
 
 #### 3.2.3 创建 Mapper 接口
