@@ -162,7 +162,20 @@ public class BrandController {
 }
 ```
 
-##### 5.3.1.6 测试
+**@Controlle r和 @RestController 的区别？**
+
+1）如果只是使用 `@RestController` 注解 Controller，则 Controller 中的方法无法返回 jsp 页面，配置的视图解析器 `InternalResourceViewResolver` 不起作用，返回的内容就是 Return 里的内容。
+
+例如：
+
+* 本来应该到 success.jsp 页面的，则其显示 success。
+* 相当于` @Controller+@ResponseBody` 两个注解的结合，返回 json 数据不需要在方法前面 `@ResponseBody` 注解了，但使用 `@RestController` 这个注解，就不能返回 jsp、html 页面，视图解析器无法解析 jsp、html 页面。
+
+2）如果需要返回到指定页面，则需要用 `@Controller` 配合视图解析器 `InternalResourceViewResolver` 才行。
+3）如果需要返回 JSON，XML 或自定义 mediaType 内容到页面，则需要在对应的方法上加上 `@ResponseBody` 注解。
+
+
+##### 5.3.1.6 测试 
 
 1. 运行 zookeeper，双击 zkServer.cmd
 
