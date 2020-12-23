@@ -306,9 +306,12 @@
 父工程模块是没有代码的，删除 src 文件夹。
 
 > pom：用在父级工程或聚合工程中，用来做 jar 包的版本控制，必须指明这个聚合工程的打包方式为 pom。聚合工程只是用来帮助其他模块构建的工具，本身并没有实质的内容。具体每个工程代码的编写还是在生成的工程中去写。
+>
 > moudle 即子项目中打包方式为 jar 或 war。
+>
 > jar：工程的默认打包方式，打包成 jar 用作 jar 包使用。存放一些其他工程都会使用的类，工具类。
->  war：将会打包成 war，发布在服务器上，如网站或服务。用户可以通过浏览器直接访问，或者是通过发布服务被别的工程调用。
+>
+> war：将会打包成 war，发布在服务器上，如网站或服务。用户可以通过浏览器直接访问，或者是通过发布服务被别的工程调用。
 
 
 ##### 4.3.1.2 公共模块 qingcheng_common 
@@ -520,8 +523,12 @@ zk.address=127.0.0.1:2181
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
+        <!-- 添加分页坐标 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+        </dependency>
     </dependencies>
-    
 </project>
 ```
 
@@ -934,7 +941,7 @@ dubbo.application=goods
 </web-app>
 ```
 
-#### 4.3.3 web层（管理后台
+#### 4.3.3 web层（管理后台）
 
 创建 qingcheng_web_manager 模块 
 
