@@ -8,7 +8,7 @@
 
 * 1、mapper.xml 文件里有大量的 sql，**当数据库表字段变动，配置文件就要修改**。
 
-* 2、**需要自己实现 sql 分页**，select * from table where ... limit 1,3。自己手写分页，除了传参 page、pageSize，还需要返回条目总数count。
+* 2、**需要自己实现 sql 分页**，select * from table where ... limit 1,3。自己手写分页，除了传参 page、pageSize，还需要返回条目总数 count。
 
 * 3、数据库**可移植性差**：如果项目更换数据库，比如 oracle-->mysql，mapper.xml 中的 sql 要重新写，因为 Oracle 的 PLSQL 和 mysql 支持的函数是不同的。
 
