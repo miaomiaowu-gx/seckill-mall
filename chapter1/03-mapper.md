@@ -116,8 +116,7 @@ public interface BrandMapper extends Mapper<Brand> {
 
 ```java
 List<T> select(T record)
-//根据T对象中的属性名称查询，类似于select * from table where t.name=#{name} and
-t.password = #{password}
+//根据T对象中的属性名称查询，类似于select * from table where t.name=#{name} and t.password = #{password}
 ```
 
 ```java
